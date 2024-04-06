@@ -3,6 +3,7 @@ import "./App.css";
 import logo from "./assets/images/logo-github.png";
 import SearchBar from "./components/SearchBar";
 import Message from "./components/Message";
+import Result from "./components/ReposResults/Result";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
 
         <SearchBar />
         <Message />
+        <Result />
       </div>
     </NextUIProvider>
   );
