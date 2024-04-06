@@ -2,7 +2,7 @@ import { Input } from "@nextui-org/react";
 
 export default function SearchBar() {
   return (
-    <div className="w-full pt-4">
+    <div className="w-full mt-4">
       <form>
         <Input
           label="Recherche"

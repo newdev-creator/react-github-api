@@ -2,6 +2,7 @@ import { Navbar, NavbarBrand, NextUIProvider } from "@nextui-org/react";
 import "./App.css";
 import logo from "./assets/images/logo-github.png";
 import SearchBar from "./components/SearchBar";
+import Message from "./components/Message";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         </Navbar>
 
         <SearchBar />
+        <Message />
       </div>
     </NextUIProvider>
   );
