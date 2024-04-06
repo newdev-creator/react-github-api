@@ -1,11 +1,37 @@
+import { useState } from "react";
+import PropTypes from "prop-types";
 import { Input } from "@nextui-org/react";
 
-export default function SearchBar() {
+export default function SearchBar({ search, setSearch, loadResults }) {
+  const [typingTimeout, setTypingTimeout] = useState(null);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    loadResults();
+  }
+
+  const handleInputChange = (e) => {
+    const newValue = e.target.value;
+    setSearch(newValue);
+
+    if (typingTimeout) {
+      clearTimeout(typingTimeout);
+    }
+
+    const timeoutId = setTimeout(() => {
+      loadResults();
+    }, 300);
+
+    setTypingTimeout(timeoutId);
+  };
+
   return (
     <div className="w-full mt-4">
-      <form>
+      <form onSubmit={handleSubmit}>
         <Input
+          onChange={handleInputChange}
           label="Recherche"
+          value={search}
           color="default"
           radius="none"
           isClearable
@@ -33,3 +59,9 @@ export default function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  search: PropTypes.string.isRequired,
+  setSearch: PropTypes.func.isRequired,
+  loadResults: PropTypes.func.isRequired,
+};
