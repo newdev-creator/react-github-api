@@ -9,13 +9,13 @@ import SearchBar from "./components/SearchBar";
 import Message from "./components/Message";
 import Result from "./components/ReposResults/Result";
 import MoreResults from "./components/MoreResults";
+import Loading from "./components/Loading";
 
 function App() {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
   const [nbResults, setNbResults] = useState(0);
   const [loading, setLoading] = useState(false);
-  console.log(results);
 
   const loadResults = () => {
     setLoading(true);
@@ -80,10 +80,22 @@ function App() {
         <Result results={results} />
 
         {results.length !== nbResults && (
-        <MoreResults
-          fetchMoreResults={fetchMoreResults}
-        />
-      )}
+          <MoreResults fetchMoreResults={fetchMoreResults} />
+        )}
+
+        {loading && (
+          <div className="gap-2 grid grid-cols-2 sm:grid-cols-3">
+            <Loading />
+            <Loading />
+            <Loading />
+            <Loading />
+            <Loading />
+            <Loading />
+            <Loading />
+            <Loading />
+            <Loading />
+          </div>
+        )}
       </div>
     </NextUIProvider>
   );
