@@ -8,6 +8,7 @@ import logo from "./assets/images/logo-github.png";
 import SearchBar from "./components/SearchBar";
 import Message from "./components/Message";
 import Result from "./components/ReposResults/Result";
+import MoreResults from "./components/MoreResults";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -37,25 +38,25 @@ function App() {
       });
   };
 
-  // const fetchMoreResults = () => {
-  //   setLoading(true);
+  const fetchMoreResults = () => {
+    setLoading(true);
 
-  //   axios
-  //     .get(
-  //       `https://api.github.com/search/repositories?q=${search}&sort=stars&order=desc&page=${
-  //         results.length / 9 + 1
-  //       }&per_page=9`
-  //     )
-  //     .then((response) => {
-  //       setResults([...results, ...response.data.items]);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // };
+    axios
+      .get(
+        `https://api.github.com/search/repositories?q=${search}&sort=stars&order=desc&page=${
+          results.length / 9 + 1
+        }&per_page=9`
+      )
+      .then((response) => {
+        setResults([...results, ...response.data.items]);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   useEffect(() => {
     document.title = `Github search - ${search}`;
@@ -63,7 +64,7 @@ function App() {
 
   return (
     <NextUIProvider>
-      <div className="bg-gray-100 w-[500px] mx-auto p-4 min-h-screen">
+      <div className="bg-gray-100 w-[800px] mx-auto p-4 min-h-screen">
         <Navbar>
           <NavbarBrand className="flex justify-center items-center">
             <img className="max-w-36" src={logo} alt="" />
@@ -75,8 +76,14 @@ function App() {
           setSearch={setSearch}
           loadResults={loadResults}
         />
-        {/* <Message nbResults={nbResults} /> */}
+        <Message nbResults={nbResults} />
         <Result results={results} />
+
+        {results.length !== nbResults && (
+        <MoreResults
+          fetchMoreResults={fetchMoreResults}
+        />
+      )}
       </div>
     </NextUIProvider>
   );
